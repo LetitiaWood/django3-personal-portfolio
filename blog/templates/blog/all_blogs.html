@@ -1,0 +1,26 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+
+<h1>Letitia's blogs</h1>
+
+
+<h2>Letitia has written {{ count }} blog{{ blogs.count|pluralize }}.</h2>
+
+{% for blog in blogs %}
+
+<a href="{% url 'blog:detail' blog.id%}"><h2>{{ blog.title }}</h2></a>
+<h5>{{ blog.date|date:"M d, Y"|upper  }}</h5>
+<p>{{ blog.description|striptags|truncatechars_html:200}}</p>
+<!-- striptags avoids marked down language -->
+<!-- changing striptags into safe allows marked down language -->
+<!-- truncatechars_html limits the leters shown of each blog on all_blog.html -->
+
+<!-- <img src="{{ blog.image.url }}" alt="" height="100" width=""> -->
+{% if blog.url %}
+<br>
+<a href="{{ blog.url }}">Link</a>
+
+{% endif %}
+
+{% endfor %}
+{% endblock %}
